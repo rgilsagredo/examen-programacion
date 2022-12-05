@@ -2,6 +2,7 @@ package com.programacion.examen;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class ExamenProgramacion {
     public static void main(String[] args) {
@@ -18,20 +19,29 @@ public class ExamenProgramacion {
         // ver que jugadr juega
         // comprobar restricciones
         // poner ficha
-        char jugador = ORDENADOR;
+        char jugador = ORDENADOR;        
+        tablero = jugar(jugador, tablero, ORDENADOR, TAMAÑ0);
+
+        jugador = USUARIO;
         tablero = jugar(jugador, tablero, ORDENADOR, TAMAÑ0);
         System.out.println(Arrays.toString(tablero));
 
     } // main
 
-    public static char[] jugar(char JUGADOR, char[] tablero, final char ORDENADOR, final int TAMAÑ0) {
+    public static char[] jugar(char jugador, char[] tablero, final char ORDENADOR, final int TAMAÑ0) {
 
         int posicion;
-        if (JUGADOR == ORDENADOR) {
+        if (jugador == ORDENADOR) {
             Random rnd = new Random();
             posicion = rnd.nextInt(TAMAÑ0);
-            tablero[posicion] = JUGADOR;
+        } else {
+            System.out.println(Arrays.toString(tablero));
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Introduce posición: ");
+            posicion = sc.nextInt();
+            sc.close();
         }
+        tablero[posicion] = jugador;
         return tablero;
 
     } // jugar
