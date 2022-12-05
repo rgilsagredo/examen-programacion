@@ -31,7 +31,7 @@ public class ExamenProgramacion {
             if (!acabarJuego && jugador == ORDENADOR) {
 
                 posicion = juegaOrdenador(tablero, ORDENADOR, USUARIO, TAMAÑO, posicionUsuario);
-                tablero[posicion] = jugador;
+                tablero[posicion] = jugador; 
                 acabarJuego = acabarJuego(tablero, ORDENADOR, USUARIO, TAMAÑO);
                 jugador = (acabarJuego) ? ORDENADOR : USUARIO;
 
