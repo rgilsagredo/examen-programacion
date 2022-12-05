@@ -47,17 +47,22 @@ public class ExamenProgramacion {
         // victoria = encontrar 3 iguales seguidas
         // recorer tablero hasta TAMAÑO-2, ver posicion actual, si esa es igual a las 2
         // siguientes, hay ganador
+        boolean hayGanador = hayGanador(T1, TAMAÑ0);
+        System.out.println(hayGanador);
+
+    } // main
+
+    public static boolean hayGanador(final char[] TABLERO, final int TAMAÑ0) {
         boolean hayGanador = false;
         char posicionActual;
         for (int i = 0; i < TAMAÑ0 - 2; i++) {
-            posicionActual = T1[i]; 
-            if(T1[i+1] == posicionActual && T1[i+2] == posicionActual){
+            posicionActual = TABLERO[i];
+            if (TABLERO[i + 1] == posicionActual && TABLERO[i + 2] == posicionActual) {
                 hayGanador = true;
                 break;
             }
         } // recorrer tablero
 
-        System.out.println(hayGanador);
-
-    } // main
+        return hayGanador;
+    }
 } // ExamenProgramacion
