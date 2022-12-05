@@ -21,14 +21,29 @@ public class ExamenProgramacion {
         // jugador inicial
         char jugador = ORDENADOR;
 
+        // controlador de posicion
+        int posicion;
+        int posicionUsuario;
+
         // jugar
         while (!acabarJuego) {
-            acabarJuego = jugar(jugador, tablero, ORDENADOR, USUARIO, TAMAÑO);
-            if (jugador == ORDENADOR && !acabarJuego) {
-                jugador = USUARIO;
-            } else if (jugador == USUARIO && !acabarJuego) {
-                jugador = ORDENADOR;
+
+            if (!acabarJuego && jugador == ORDENADOR) {
+
+                posicion = juegaOrdenador(tablero, ORDENADOR, USUARIO, TAMAÑO);
+                tablero[posicion] = jugador;
+                acabarJuego = acabarJuego(tablero, ORDENADOR, USUARIO, TAMAÑO);
+                jugador = (acabarJuego) ? ORDENADOR : USUARIO;
+
+            } else if (!acabarJuego && jugador == USUARIO) {
+
+                posicionUsuario = juegaUsuario(tablero, ORDENADOR, USUARIO, TAMAÑO);
+                tablero[posicionUsuario] = jugador;
+                acabarJuego = acabarJuego(tablero, ORDENADOR, USUARIO, TAMAÑO);
+                jugador = (acabarJuego) ? USUARIO : ORDENADOR;
+
             }
+
         }
 
         // mostrar resultado final
@@ -48,35 +63,13 @@ public class ExamenProgramacion {
         System.out.println(Arrays.toString(tablero));
     } // mostrarResultado
 
-    public static boolean jugar(char jugador, char[] tablero, final char ORDENADOR, final char USUARIO,
-            final int TAMAÑO) {
-
-        tablero = hacerJugada(jugador, tablero, ORDENADOR, USUARIO, TAMAÑO);
-        return acabarJuego(tablero, ORDENADOR, USUARIO, TAMAÑO);
-
-    } // jugar
 
     public static boolean acabarJuego(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO) {
 
-        return hayGanador(tablero, TAMAÑO, ORDENADOR, USUARIO) || hayEmpate(tablero, ORDENADOR, USUARIO, TAMAÑO);
+        return hayGanador(tablero, ORDENADOR, USUARIO, TAMAÑO) || hayEmpate(tablero, ORDENADOR, USUARIO, TAMAÑO);
 
     } // acabarJuego
 
-    public static char[] hacerJugada(char jugador, char[] tablero, final char ORDENADOR, final char USUARIO,
-            final int TAMAÑO) {
-
-        int posicion;
-
-        if (jugador == ORDENADOR) {
-            posicion = juegaOrdenador(tablero, ORDENADOR, USUARIO, TAMAÑO);
-        } else {
-            posicion = juegaUsuario(tablero, ORDENADOR, USUARIO, TAMAÑO);
-        }
-
-        tablero[posicion] = jugador;
-        return tablero;
-
-    } // hacerJugada
 
     public static int juegaUsuario(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO) {
 
@@ -128,12 +121,12 @@ public class ExamenProgramacion {
     public static int esPosicionBuena(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO,
             Random rnd) {
 
-        boolean posicion_ok = false;
+        boolean posicionOk = false;
         int posicion = 0;
 
-        while (!posicion_ok) {
+        while (!posicionOk) {
             posicion = rnd.nextInt(TAMAÑO);
-            posicion_ok = !(tablero[posicion] == ORDENADOR || tablero[posicion] == USUARIO);
+            posicionOk = !(tablero[posicion] == ORDENADOR || tablero[posicion] == USUARIO);
         }
 
         return posicion;
@@ -142,11 +135,11 @@ public class ExamenProgramacion {
 
     public static boolean hayEmpate(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO) {
 
-        return !hayGanador(tablero, TAMAÑO, ORDENADOR, USUARIO) && !hayHuecos(ORDENADOR, USUARIO, tablero);
+        return !hayGanador(tablero, ORDENADOR, USUARIO, TAMAÑO) && !hayHuecos(tablero, ORDENADOR, USUARIO);
 
     } // hayEmpate
 
-    public static boolean hayGanador(char[] tablero, final int TAMAÑO, final char ORDENADOR, final char USUARIO) {
+    public static boolean hayGanador(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO) {
 
         boolean hayGanador = false;
         char posicionActual;
@@ -170,7 +163,7 @@ public class ExamenProgramacion {
 
     } // hayGanador
 
-    public static boolean hayHuecos(final char ORDENADOR, final char USUARIO, char[] tablero) {
+    public static boolean hayHuecos(char[] tablero, final char ORDENADOR, final char USUARIO) {
 
         boolean hayHuecos = false;
 
