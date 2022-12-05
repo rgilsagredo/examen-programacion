@@ -32,19 +32,29 @@ public class ExamenProgramacion {
 
         int posicion;
         if (jugador == ORDENADOR) {
-            Random rnd = new Random();
-            posicion = rnd.nextInt(TAMAÑ0);
+            posicion = juegaOrdenador(TAMAÑ0);
         } else {
-            System.out.println(Arrays.toString(tablero));
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Introduce posición: ");
-            posicion = sc.nextInt();
-            sc.close();
+            posicion = juegaUsuario(tablero);
         }
         tablero[posicion] = jugador;
         return tablero;
 
     } // jugar
+
+    public static int juegaUsuario(char[] tablero) {
+        int posicion;
+        System.out.println(Arrays.toString(tablero));
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce posición: ");
+        posicion = sc.nextInt();
+        sc.close();
+        return posicion;
+    }
+
+    public static int juegaOrdenador(final int TAMAÑ0) {
+        Random rnd = new Random();
+        return rnd.nextInt(TAMAÑ0);
+    } // juegaOrdenador
 
     public static boolean hayEmpate(final char ORDENADOR, final char USUARIO, final int TAMAÑ0, char[] tablero) {
         boolean hayEmpate = false;
