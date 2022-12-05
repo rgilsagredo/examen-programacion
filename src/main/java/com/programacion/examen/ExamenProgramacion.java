@@ -38,20 +38,29 @@ public class ExamenProgramacion {
         final char[] T4 = { USUARIO, USUARIO, ORDENADOR, USUARIO, ORDENADOR, USUARIO, ORDENADOR, USUARIO, ORDENADOR,
                 USUARIO };
 
-        // detectamos huecos
-        boolean hayHuecos = hayHuecos(ORDENADOR, USUARIO, T1);
-        System.out.println("T1: " + hayHuecos);
+        // detectamos empates
+        boolean hayEmpate = hayEmpate(ORDENADOR, USUARIO, TAMAÑ0, TABLERO);
+        System.out.println("T1: " + hayEmpate);
 
-        hayHuecos = hayHuecos(ORDENADOR, USUARIO, T2);
-        System.out.println("T2: " + hayHuecos);
+         
+        hayEmpate = hayEmpate(ORDENADOR, USUARIO, TAMAÑ0, T2);
+        System.out.println("T2: " + hayEmpate);
 
-        hayHuecos = hayHuecos(ORDENADOR, USUARIO, T3);
-        System.out.println("T3: " + hayHuecos);
+        hayEmpate = hayEmpate(ORDENADOR, USUARIO, TAMAÑ0, T3);
+        System.out.println("T3: " + hayEmpate);
 
-        hayHuecos = hayHuecos(ORDENADOR, USUARIO, T4);
-        System.out.println("T4: " + hayHuecos);
+        hayEmpate = hayEmpate(ORDENADOR, USUARIO, TAMAÑ0, T4);
+        System.out.println("T4: " + hayEmpate);
 
     } // main
+
+    private static boolean hayEmpate(final char ORDENADOR, final char USUARIO, final int TAMAÑ0, final char[] TABLERO) {
+        boolean hayEmpate = false;
+        if(!hayGanador(TABLERO, TAMAÑ0, ORDENADOR, USUARIO) && !hayHuecos(ORDENADOR, USUARIO, TABLERO)){
+            hayEmpate = true;
+        }
+        return hayEmpate;
+    }
 
     public static boolean hayGanador(final char[] TABLERO, final int TAMAÑ0, final char ORDENADOR, final char USUARIO) {
         boolean hayGanador = false;
