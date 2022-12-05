@@ -18,16 +18,20 @@ public class ExamenProgramacion {
         // controladores de fin de juego
         boolean acabarJuego = false;
 
-        char jugador;
+        // jugador inicial
+        char jugador = ORDENADOR;
 
         // jugar
         while (!acabarJuego) {
-            jugador = ORDENADOR;
             acabarJuego = jugar(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
-            jugador = USUARIO;
-            acabarJuego = jugar(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
+            if (jugador == ORDENADOR && !acabarJuego) {
+                jugador = USUARIO;
+            } else if (jugador == USUARIO && !acabarJuego) {
+                jugador = ORDENADOR;
+            }
         }
-        
+
+        // mostrar resultado final
         System.out.println(Arrays.toString(tablero));
 
     } // main
