@@ -36,6 +36,14 @@ public class ExamenProgramacion {
         // T4 -- no hay ganador sin huecos
         final char[] T4 = {USUARIO,USUARIO,ORDENADOR,USUARIO,ORDENADOR,USUARIO,ORDENADOR,USUARIO,ORDENADOR,USUARIO};
 
+        // detectamos huecos
+        boolean hayHuecos = false;
+        for(char c: T1){
+            hayHuecos = (c != ORDENADOR || c != USUARIO) ? true:false;
+        }
+
+        System.out.println(hayHuecos);
+
 
     } // main
 
