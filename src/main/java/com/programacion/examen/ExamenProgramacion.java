@@ -11,7 +11,6 @@ public class ExamenProgramacion {
         final int TAMAÑ0 = 10;
         final char[] TABLERO = new char[TAMAÑ0];
 
-
         // empate = no hay ganador y no hay huecos
         // creamos arrays para testeo
 
@@ -24,7 +23,8 @@ public class ExamenProgramacion {
         T1[9] = ORDENADOR;
 
         // T2 -- hay ganador sin huecos
-        final char[] T2 = {USUARIO,USUARIO,ORDENADOR,ORDENADOR,ORDENADOR,USUARIO,ORDENADOR,USUARIO,ORDENADOR,USUARIO};
+        final char[] T2 = { USUARIO, USUARIO, ORDENADOR, ORDENADOR, ORDENADOR, USUARIO, ORDENADOR, USUARIO, ORDENADOR,
+                USUARIO };
 
         // T3 -- no hay ganador con huecos
         final char[] T3 = new char[TAMAÑ0];
@@ -35,17 +35,21 @@ public class ExamenProgramacion {
         T3[9] = ORDENADOR;
 
         // T4 -- no hay ganador sin huecos
-        final char[] T4 = {USUARIO,USUARIO,ORDENADOR,USUARIO,ORDENADOR,USUARIO,ORDENADOR,USUARIO,ORDENADOR,USUARIO};
+        final char[] T4 = { USUARIO, USUARIO, ORDENADOR, USUARIO, ORDENADOR, USUARIO, ORDENADOR, USUARIO, ORDENADOR,
+                USUARIO };
 
         // detectamos huecos
-        boolean hayHuecos = false;
-        for(char c: T1){
-            hayHuecos = (c != ORDENADOR || c != USUARIO) ? true:false;
-        }
+        boolean hayHuecos = hayHuecos(ORDENADOR, USUARIO, T1);
+        System.out.println("T1: " + hayHuecos);
 
-        System.out.println(hayHuecos);
+        hayHuecos = hayHuecos(ORDENADOR, USUARIO, T2);
+        System.out.println("T2: " + hayHuecos);
 
+        hayHuecos = hayHuecos(ORDENADOR, USUARIO, T3);
+        System.out.println("T3: " + hayHuecos);
 
+        hayHuecos = hayHuecos(ORDENADOR, USUARIO, T4);
+        System.out.println("T4: " + hayHuecos);
 
     } // main
 
@@ -65,4 +69,16 @@ public class ExamenProgramacion {
 
         return hayGanador;
     } // hayGanador
+
+    public static boolean hayHuecos(final char ORDENADOR, final char USUARIO, final char[] TABLERO) {
+        boolean hayHuecos = false;
+        for (char c : TABLERO) {
+            if (c != ORDENADOR && c != USUARIO) {
+                hayHuecos = true;
+                break;
+            }
+        }
+        return hayHuecos;
+    } // hayHuecos
+
 } // ExamenProgramacion
