@@ -23,14 +23,14 @@ public class ExamenProgramacion {
 
         // controlador de posicion
         int posicion;
-        int posicionUsuario;
+        int posicionUsuario = -1;
 
         // jugar
         while (!acabarJuego) {
 
             if (!acabarJuego && jugador == ORDENADOR) {
 
-                posicion = juegaOrdenador(tablero, ORDENADOR, USUARIO, TAMAÑO);
+                posicion = juegaOrdenador(tablero, ORDENADOR, USUARIO, TAMAÑO, posicionUsuario);
                 tablero[posicion] = jugador;
                 acabarJuego = acabarJuego(tablero, ORDENADOR, USUARIO, TAMAÑO);
                 jugador = (acabarJuego) ? ORDENADOR : USUARIO;
@@ -63,13 +63,11 @@ public class ExamenProgramacion {
         System.out.println(Arrays.toString(tablero));
     } // mostrarResultado
 
-
     public static boolean acabarJuego(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO) {
 
         return hayGanador(tablero, ORDENADOR, USUARIO, TAMAÑO) || hayEmpate(tablero, ORDENADOR, USUARIO, TAMAÑO);
 
     } // acabarJuego
-
 
     public static int juegaUsuario(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO) {
 
@@ -111,10 +109,40 @@ public class ExamenProgramacion {
         return posicion;
     }
 
-    public static int juegaOrdenador(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO) {
+    public static int juegaOrdenador(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO,
+            int posicionUsuario) {
 
-        Random rnd = new Random();
-        return esPosicionBuena(tablero, ORDENADOR, USUARIO, TAMAÑO, rnd);
+        if (posicionUsuario != -1) {
+
+            boolean derechaNoOcupada = false;
+            boolean derechaDentroLimites = (posicionUsuario + 1 < TAMAÑO) && (posicionUsuario + 1 > 0);
+
+            if (derechaDentroLimites) {
+                derechaNoOcupada = !(tablero[posicionUsuario + 1] == ORDENADOR
+                        || tablero[posicionUsuario + 1] == USUARIO);
+            }
+            if (derechaNoOcupada && derechaDentroLimites) {
+                return posicionUsuario + 1;
+            }
+
+            boolean izquierdaNoOcupada = false;
+            boolean izquierdaDentroLimites = (posicionUsuario - 1) < TAMAÑO && (posicionUsuario - 1 > 0);
+            if (izquierdaDentroLimites) {
+                izquierdaNoOcupada = !(tablero[posicionUsuario - 1] == ORDENADOR
+                        || tablero[posicionUsuario - 1] == USUARIO);
+            }
+            if (izquierdaNoOcupada && izquierdaDentroLimites) {
+                return posicionUsuario - 1;
+            }
+
+            Random rnd = new Random();
+            return esPosicionBuena(tablero, ORDENADOR, USUARIO, TAMAÑO, rnd);
+
+        } else {
+
+            Random rnd = new Random();
+            return esPosicionBuena(tablero, ORDENADOR, USUARIO, TAMAÑO, rnd);
+        }
 
     } // juegaOrdenador
 
