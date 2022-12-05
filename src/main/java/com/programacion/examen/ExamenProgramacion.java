@@ -109,32 +109,43 @@ public class ExamenProgramacion {
         return posicion;
     }
 
+    public static boolean ponerEn(final int MASMENOSUNO, char[] tablero, final char ORDENADOR, final char USUARIO,
+            int posicionUsuario, final int TAMAÑO) {
+
+        boolean ponerEn = false;
+
+        boolean posicionNoOcupada = false;
+        boolean posicionDentroLimites = (posicionUsuario + MASMENOSUNO < TAMAÑO) && (posicionUsuario + MASMENOSUNO > 0);
+
+        if (posicionDentroLimites) {
+            posicionNoOcupada = !(tablero[posicionUsuario + MASMENOSUNO] == ORDENADOR
+                    || tablero[posicionUsuario + MASMENOSUNO] == USUARIO);
+        }
+
+        if (posicionDentroLimites && posicionNoOcupada) {
+            ponerEn = true;
+        }
+
+        return ponerEn;
+
+    } // ponerEn
+
     public static int juegaOrdenador(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO,
             int posicionUsuario) {
 
         if (posicionUsuario != -1) {
 
-            boolean derechaNoOcupada = false;
-            boolean derechaDentroLimites = (posicionUsuario + 1 < TAMAÑO) && (posicionUsuario + 1 > 0);
+            final int DERECHA = 1;
+            final int IZQUIERDA = -1;
 
-            if (derechaDentroLimites) {
-                derechaNoOcupada = !(tablero[posicionUsuario + 1] == ORDENADOR
-                        || tablero[posicionUsuario + 1] == USUARIO);
-            }
-            if (derechaNoOcupada && derechaDentroLimites) {
-                return posicionUsuario + 1;
+            if (ponerEn(DERECHA, tablero, ORDENADOR, USUARIO, posicionUsuario, TAMAÑO)) {
+                return posicionUsuario + DERECHA;
             }
 
-            boolean izquierdaNoOcupada = false;
-            boolean izquierdaDentroLimites = (posicionUsuario - 1) < TAMAÑO && (posicionUsuario - 1 > 0);
-            if (izquierdaDentroLimites) {
-                izquierdaNoOcupada = !(tablero[posicionUsuario - 1] == ORDENADOR
-                        || tablero[posicionUsuario - 1] == USUARIO);
+            if (ponerEn(IZQUIERDA, tablero, ORDENADOR, USUARIO, posicionUsuario, TAMAÑO)) {
+                return posicionUsuario + IZQUIERDA;
             }
-            if (izquierdaNoOcupada && izquierdaDentroLimites) {
-                return posicionUsuario - 1;
-            }
-
+            
             Random rnd = new Random();
             return esPosicionBuena(tablero, ORDENADOR, USUARIO, TAMAÑO, rnd);
 
