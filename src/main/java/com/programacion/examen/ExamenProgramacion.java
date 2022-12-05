@@ -4,7 +4,7 @@ package com.programacion.examen;
  * Hello world!
  *
  */
-public class App 
+public class ExamenProgramacion 
 {
     public static void main( String[] args )
     {
