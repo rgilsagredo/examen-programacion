@@ -46,7 +46,7 @@ public class ExamenProgramacion {
         }
 
         System.out.println(Arrays.toString(tablero));
-    }
+    } // mostrarResultado
 
     public static boolean jugar(char jugador, char[] tablero, final char ORDENADOR, final char USUARIO,
             final int TAMAÑO) {
@@ -133,9 +133,7 @@ public class ExamenProgramacion {
 
         while (!posicion_ok) {
             posicion = rnd.nextInt(TAMAÑO);
-            if (!(tablero[posicion] == ORDENADOR || tablero[posicion] == USUARIO)) {
-                posicion_ok = true;
-            }
+            posicion_ok = !(tablero[posicion] == ORDENADOR || tablero[posicion] == USUARIO);
         }
 
         return posicion;
@@ -144,14 +142,9 @@ public class ExamenProgramacion {
 
     public static boolean hayEmpate(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO) {
 
-        boolean hayEmpate = false;
+        return !hayGanador(tablero, TAMAÑO, ORDENADOR, USUARIO) && !hayHuecos(ORDENADOR, USUARIO, tablero);
 
-        if (!hayGanador(tablero, TAMAÑO, ORDENADOR, USUARIO) && !hayHuecos(ORDENADOR, USUARIO, tablero)) {
-            hayEmpate = true;
-        }
-
-        return hayEmpate;
-    }
+    } // hayEmpate
 
     public static boolean hayGanador(char[] tablero, final int TAMAÑO, final char ORDENADOR, final char USUARIO) {
 
@@ -159,18 +152,22 @@ public class ExamenProgramacion {
         char posicionActual;
 
         for (int i = 0; i < TAMAÑO - 2; i++) {
+
             posicionActual = tablero[i];
-            if (posicionActual != ORDENADOR && posicionActual != USUARIO) {
+
+            boolean esHueco = (posicionActual != ORDENADOR) && (posicionActual != USUARIO);
+            if (esHueco) {
                 continue;
             }
 
-            if (tablero[i + 1] == posicionActual && tablero[i + 2] == posicionActual) {
-                hayGanador = true;
+            hayGanador = (tablero[i + 1] == posicionActual) && (tablero[i + 2] == posicionActual);
+            if (hayGanador) {
                 break;
             }
         } // recorrer tablero
 
         return hayGanador;
+
     } // hayGanador
 
     public static boolean hayHuecos(final char ORDENADOR, final char USUARIO, char[] tablero) {
@@ -178,13 +175,14 @@ public class ExamenProgramacion {
         boolean hayHuecos = false;
 
         for (char c : tablero) {
-            if (c != ORDENADOR && c != USUARIO) {
-                hayHuecos = true;
+            hayHuecos = (c != ORDENADOR && c != USUARIO);
+            if (hayHuecos) {
                 break;
             }
         }
 
         return hayHuecos;
+
     } // hayHuecos
 
 } // ExamenProgramacion
