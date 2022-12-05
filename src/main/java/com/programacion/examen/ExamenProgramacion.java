@@ -23,10 +23,10 @@ public class ExamenProgramacion {
         // jugar
         while(!acabarJuego){
             jugador = ORDENADOR;
-            tablero = jugar(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
+            tablero = hacerJuagda(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
             acabarJuego = acabarJuego(tablero, ORDENADOR, USUARIO, TAMAÑ0);
             jugador = USUARIO;
-            tablero = jugar(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
+            tablero = hacerJuagda(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
             acabarJuego = acabarJuego(tablero, ORDENADOR, USUARIO, TAMAÑ0);
         }
         System.out.println(Arrays.toString(tablero));
@@ -37,7 +37,7 @@ public class ExamenProgramacion {
         return hayGanador(tablero, TAMAÑO, ORDENADOR, USUARIO) || hayEmpate(tablero, ORDENADOR, USUARIO, TAMAÑO);
     }
 
-    public static char[] jugar(char jugador, char[] tablero, final char ORDENADOR, final char USUARIO,
+    public static char[] hacerJuagda(char jugador, char[] tablero, final char ORDENADOR, final char USUARIO,
             final int TAMAÑO) {
 
         int posicion;
