@@ -15,24 +15,22 @@ public class ExamenProgramacion {
         final int TAMAÑ0 = 10;
         char[] tablero = new char[TAMAÑ0];
 
-        // metodo para jugar
-        // ver que jugadr juega
-        // comprobar restricciones
-        // poner ficha
-        char jugador = ORDENADOR;        
-        tablero = jugar(jugador, tablero, ORDENADOR, TAMAÑ0);
+        // comporbar que la posición está ocupada
+        char jugador = ORDENADOR;
 
-        jugador = USUARIO;
-        tablero = jugar(jugador, tablero, ORDENADOR, TAMAÑ0);
-        System.out.println(Arrays.toString(tablero));
+        for (int i = 0; i < 5; i++) {
+            tablero = jugar(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
+            System.out.println(Arrays.toString(tablero));
+        }
 
     } // main
 
-    public static char[] jugar(char jugador, char[] tablero, final char ORDENADOR, final int TAMAÑ0) {
+    public static char[] jugar(char jugador, char[] tablero, final char ORDENADOR, final char USUARIO,
+            final int TAMAÑO) {
 
         int posicion;
         if (jugador == ORDENADOR) {
-            posicion = juegaOrdenador(TAMAÑ0);
+            posicion = juegaOrdenador(tablero, ORDENADOR, USUARIO, TAMAÑO);
         } else {
             posicion = juegaUsuario(tablero);
         }
@@ -49,12 +47,27 @@ public class ExamenProgramacion {
         posicion = sc.nextInt();
         sc.close();
         return posicion;
-    }
+    } // juegaUsuario
 
-    public static int juegaOrdenador(final int TAMAÑ0) {
+    public static int juegaOrdenador(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO) {
         Random rnd = new Random();
-        return rnd.nextInt(TAMAÑ0);
+        int posicion = esPosicionBuena(tablero, ORDENADOR, USUARIO, TAMAÑO, rnd);
+        return posicion;
+
     } // juegaOrdenador
+
+    public static int esPosicionBuena(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO,
+            Random rnd) {
+        boolean posicion_ok = false;
+        int posicion = 0;
+        while (!posicion_ok) {
+            posicion = rnd.nextInt(TAMAÑO);
+            if (!(tablero[posicion] == ORDENADOR || tablero[posicion] == USUARIO)) {
+                posicion_ok = true;
+            }
+        }
+        return posicion;
+    } // esPosicionBuena
 
     public static boolean hayEmpate(final char ORDENADOR, final char USUARIO, final int TAMAÑ0, char[] tablero) {
         boolean hayEmpate = false;
