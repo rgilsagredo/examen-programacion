@@ -15,12 +15,27 @@ public class ExamenProgramacion {
         final int TAMAÑ0 = 10;
         char[] tablero = new char[TAMAÑ0];
 
-        char jugador = USUARIO;
-        for (int i = 0; i < 5; i++) {
+        // controladores de fin de juego
+        boolean acabarJuego = false;
+
+        char jugador;
+
+        // jugar
+        while(!acabarJuego){
+            jugador = ORDENADOR;
             tablero = jugar(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
+            acabarJuego = acabarJuego(tablero, ORDENADOR, USUARIO, TAMAÑ0);
+            jugador = USUARIO;
+            tablero = jugar(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
+            acabarJuego = acabarJuego(tablero, ORDENADOR, USUARIO, TAMAÑ0);
         }
+        System.out.println(Arrays.toString(tablero));
 
     } // main
+
+    public static boolean acabarJuego(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO){
+        return hayGanador(tablero, TAMAÑO, ORDENADOR, USUARIO) || hayEmpate(tablero, ORDENADOR, USUARIO, TAMAÑO);
+    }
 
     public static char[] jugar(char jugador, char[] tablero, final char ORDENADOR, final char USUARIO,
             final int TAMAÑO) {
@@ -90,7 +105,7 @@ public class ExamenProgramacion {
         return posicion;
     } // esPosicionBuena
 
-    public static boolean hayEmpate(final char ORDENADOR, final char USUARIO, final int TAMAÑ0, char[] tablero) {
+    public static boolean hayEmpate(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑ0) {
         boolean hayEmpate = false;
         if (!hayGanador(tablero, TAMAÑ0, ORDENADOR, USUARIO) && !hayHuecos(ORDENADOR, USUARIO, tablero)) {
             hayEmpate = true;
