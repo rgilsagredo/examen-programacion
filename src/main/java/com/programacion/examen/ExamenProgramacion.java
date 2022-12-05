@@ -48,7 +48,19 @@ public class ExamenProgramacion {
         // recorer tablero hasta TAMAÑO-2, ver posicion actual, si esa es igual a las 2
         // siguientes, hay ganador
         boolean hayGanador = hayGanador(T1, TAMAÑ0);
-        System.out.println(hayGanador);
+        System.out.println("T1: " + hayGanador);
+
+        hayGanador = hayGanador(T2, TAMAÑ0);
+        System.out.println("T2: " + hayGanador);
+
+        hayGanador = hayGanador(T3, TAMAÑ0);
+        System.out.println("T3: " + hayGanador);
+
+        hayGanador = hayGanador(T4, TAMAÑ0);
+        System.out.println("T4: " + hayGanador);
+
+        hayGanador = hayGanador(T5, TAMAÑ0);
+        System.out.println("T5: " + hayGanador);
 
     } // main
 
