@@ -21,23 +21,28 @@ public class ExamenProgramacion {
         char jugador;
 
         // jugar
-        while(!acabarJuego){
+        while (!acabarJuego) {
             jugador = ORDENADOR;
-            tablero = hacerJuagda(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
-            acabarJuego = acabarJuego(tablero, ORDENADOR, USUARIO, TAMAÑ0);
+            acabarJuego = jugar(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
             jugador = USUARIO;
-            tablero = hacerJuagda(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
-            acabarJuego = acabarJuego(tablero, ORDENADOR, USUARIO, TAMAÑ0);
+            acabarJuego = jugar(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
         }
+        
         System.out.println(Arrays.toString(tablero));
 
     } // main
 
-    public static boolean acabarJuego(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO){
+    public static boolean jugar(char jugador, char[] tablero, final char ORDENADOR, final char USUARIO,
+            final int TAMAÑ0) {
+        tablero = hacerJugada(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
+        return acabarJuego(tablero, ORDENADOR, USUARIO, TAMAÑ0);
+    }
+
+    public static boolean acabarJuego(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO) {
         return hayGanador(tablero, TAMAÑO, ORDENADOR, USUARIO) || hayEmpate(tablero, ORDENADOR, USUARIO, TAMAÑO);
     }
 
-    public static char[] hacerJuagda(char jugador, char[] tablero, final char ORDENADOR, final char USUARIO,
+    public static char[] hacerJugada(char jugador, char[] tablero, final char ORDENADOR, final char USUARIO,
             final int TAMAÑO) {
 
         int posicion;
