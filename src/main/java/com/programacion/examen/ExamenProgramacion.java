@@ -15,12 +15,9 @@ public class ExamenProgramacion {
         final int TAMAÑ0 = 10;
         char[] tablero = new char[TAMAÑ0];
 
-        // comporbar que la posición está ocupada
-        char jugador = ORDENADOR;
-
+        char jugador = USUARIO;
         for (int i = 0; i < 5; i++) {
             tablero = jugar(jugador, tablero, ORDENADOR, USUARIO, TAMAÑ0);
-            System.out.println(Arrays.toString(tablero));
         }
 
     } // main
@@ -32,22 +29,46 @@ public class ExamenProgramacion {
         if (jugador == ORDENADOR) {
             posicion = juegaOrdenador(tablero, ORDENADOR, USUARIO, TAMAÑO);
         } else {
-            posicion = juegaUsuario(tablero);
+            posicion = juegaUsuario(tablero, ORDENADOR, USUARIO, TAMAÑO);
         }
         tablero[posicion] = jugador;
         return tablero;
 
     } // jugar
 
-    public static int juegaUsuario(char[] tablero) {
+    public static int juegaUsuario(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑ0) {
         int posicion;
         System.out.println(Arrays.toString(tablero));
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduce posición: ");
-        posicion = sc.nextInt();
-        sc.close();
+        posicion = esPosicionBuena(tablero, ORDENADOR, USUARIO, TAMAÑ0, sc);
         return posicion;
     } // juegaUsuario
+
+    public static int esPosicionBuena(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑ0,
+            Scanner sc) {
+
+        int posicion = 0;
+        boolean posicionOK = false;
+        boolean dentroLimites = false;
+        boolean noOcupada = false;
+
+        while (!posicionOK) {
+            posicion = sc.nextInt();
+            dentroLimites = !(posicion < 0 || posicion >= TAMAÑ0);
+
+            if (dentroLimites) {
+                noOcupada = !(tablero[posicion] == ORDENADOR || tablero[posicion] == USUARIO);
+            }
+
+            posicionOK = dentroLimites && noOcupada;
+            if (!posicionOK) {
+                System.out.println("Posición inválida, introduce una nueva: ");
+            }
+        }
+
+        return posicion;
+    }
 
     public static int juegaOrdenador(char[] tablero, final char ORDENADOR, final char USUARIO, final int TAMAÑO) {
         Random rnd = new Random();
