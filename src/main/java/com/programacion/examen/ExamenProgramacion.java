@@ -1,6 +1,5 @@
 package com.programacion.examen;
 
-
 public class ExamenProgramacion {
     public static void main(String[] args) {
 
@@ -9,7 +8,7 @@ public class ExamenProgramacion {
         final char USUARIO = 'U';
 
         // creamos tablero
-        final int TAMAÑ0 = 10; 
+        final int TAMAÑ0 = 10;
         final char[] TABLERO = new char[TAMAÑ0];
 
         // añado tableros "test" a mano para probar que mi metodo de victoria funciona
@@ -42,7 +41,23 @@ public class ExamenProgramacion {
         T4[9] = USUARIO;
 
         // T5 -- sin victoria, sin huecos
-        final char[] T5 = {USUARIO,ORDENADOR,USUARIO,USUARIO,ORDENADOR,USUARIO,USUARIO,ORDENADOR,USUARIO,USUARIO};
+        final char[] T5 = { USUARIO, ORDENADOR, USUARIO, USUARIO, ORDENADOR, USUARIO, USUARIO, ORDENADOR, USUARIO,
+                USUARIO };
+
+        // victoria = encontrar 3 iguales seguidas
+        // recorer tablero hasta TAMAÑO-2, ver posicion actual, si esa es igual a las 2
+        // siguientes, hay ganador
+        boolean hayGanador = false;
+        char posicionActual;
+        for (int i = 0; i < TAMAÑ0 - 2; i++) {
+            posicionActual = T1[i]; 
+            if(T1[i+1] == posicionActual && T1[i+2] == posicionActual){
+                hayGanador = true;
+                break;
+            }
+        } // recorrer tablero
+
+        System.out.println(hayGanador);
 
     } // main
 } // ExamenProgramacion
